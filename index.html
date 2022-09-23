@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url(./assets/sp.png);
+            background-size: cover;
+        }
+
+        .main {
+            position: absolute;
+            bottom: 2%;
+            right: 26%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .btn {
+            border: none;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .btn:active {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <button class="btn" onclick="jump()">我要报名</button>
+    </div>
+</body>
+
+<script>
+    const jump = () => {
+        location.href = './signUp.html'
+    }
+</script>
+
+</html>
