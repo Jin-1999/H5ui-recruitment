@@ -16,13 +16,60 @@
             background-size: contain;
         }
 
+        input::placeholder,
+        textarea::placeholder {
+            color: #212121
+        }
+
+        .h5ui-group {
+            margin-bottom: 30%;
+        }
+
+        .h5ui-form,
+        .h5ui-select>select {
+            background: #f0c561;
+        }
+
+        .h5ui-form-input {
+            padding-top: 20px;
+            padding-right: 10px;
+            padding-bottom: 20px;
+            padding-left: 90px;
+            background: #f0c561;
+        }
+
+        .h5ui-form-label {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background: #f0c561;
+        }
+
+        .h5ui-select {
+            padding-left: 90px;
+        }
+
+        .h5ui-form-label {
+            text-align: right;
+            width: 78px;
+            margin: 0;
+            color: #212121;
+            position: absolute;
+            padding: 0;
+            height: 100%;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-left: 10px;
+        }
+
         .main {
             position: absolute;
             bottom: 0;
             right: 0;
             display: flex;
             flex-direction: column;
-            width: 100%;
+            width: 66%;
         }
 
         .h5ui-modal_share .modal-header {
@@ -54,12 +101,12 @@
         </div>
         <div class="h5ui-group">
             <div class="h5ui-form">
-                <label for="name" class="h5ui-form-label">姓名</label>
+                <label for="name" class="h5ui-form-label">姓名:</label>
                 <input type="text" id="name" class="h5ui-form-input" placeholder="请输入姓名">
             </div>
 
             <div class="h5ui-form">
-                <label class="h5ui-form-label" for="city">报名城市</label>
+                <label class="h5ui-form-label" for="city">报名城市:</label>
                 <div class="h5ui-select">
                     <select name="city" id="city">
                         <option value="0">请选择</option>
@@ -68,7 +115,7 @@
             </div>
 
             <div class="h5ui-form">
-                <label class="h5ui-form-label" for="area">报名区县</label>
+                <label class="h5ui-form-label" for="area">报名区县:</label>
                 <div class="h5ui-select">
                     <select name="area" id="area">
                         <option value="0">请选择</option>
@@ -77,8 +124,9 @@
             </div>
 
             <div class="h5ui-form">
-                <label for="phone" class="h5ui-form-label">联系电话 </label>
-                <input type="text" id="phone" class="h5ui-form-input" placeholder="请输入联系电话  ">
+                <label for="phone" class="h5ui-form-label">联系电话:</label>
+                <input type="text" id="phone" class="h5ui-form-input" placeholder="请输入联系电话" <input type="text"
+                    onkeyup="value=value.replace(/[^\d]/g,'')">
             </div>
 
             <div style="text-align:right">
@@ -161,7 +209,7 @@
     // 赋值城市
     const setCityOption = (data) => {
         const a = data.map(city => city.nodeName)
-        let html = ''
+        let html = '<option value="">请选择</option>'
         a.forEach(city => {
             html += `<option value="${city}">${city}</option>`
         })
@@ -177,7 +225,7 @@
                 a = v.children.map(v => v.nodeName)
             }
         })
-        let html = ''
+        let html = '<option value="">请选择</option>'
         a.forEach(area => {
             html += `<option value="${area}">${area}</option>`
         })
@@ -200,6 +248,15 @@
                     $('.h5ui-toptips_error').hide()
                 }, 2000);
                 return false
+            } else {
+                if (data[key] == '请选择') {
+                    $('.h5ui-toptips_error span').text(map[key])
+                    $('.h5ui-toptips_error').show()
+                    setTimeout(() => {
+                        $('.h5ui-toptips_error').hide()
+                    }, 2000);
+                    return false
+                }
             }
         }
         return true
@@ -241,17 +298,19 @@
     // 关闭弹窗
     const exit = () => {
         $('#modal-example').hide()
+        history.back()
     }
 
 
-
+    // 电话输入
+    const changePhone = (e) => {
+        console.log()
+    }
 
     $('#city').change(function () {
         const val = $(this).val()
         setAreaOption(val)
     })
-
-
 
     $('.h5ui-toptips_error').hide()
     getCity().then(() => {
